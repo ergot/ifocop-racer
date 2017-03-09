@@ -9,8 +9,55 @@
     <script>
       var socket = io.connect('http://localhost:3000');
     </script>
+
+    <script>
+
+        window.addEventListener('load', function (){
+
+            var form = document.getElementsByTagName('form')[0];
+            form.addEventListener('submit', function(e){
+              e.preventDefault();
+              alert('ttt');
+            });
+
+
+        })
+    </script>
+
 </head>
 <body>
+
+<!-- As a heading -->
+<nav class="navbar navbar-light bg-faded" style="background-color: #e3f2fd;">
+    <h1 class="text-center">Speed Racer Project</h1>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8">col-8
+        </div>
+        <div class="col-sm-4">
+            <p> le form speudo</p>
+            <form action="op">
+                <div class="form-group">
+                    <label for="speudo">Entrez votre speudo</label>
+                    <input type="text" class="form-control" id="speudo" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
 
 </body>
 </html>
