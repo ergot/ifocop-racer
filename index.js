@@ -41,6 +41,10 @@ io.sockets.on('connection', function (socket) {
 
   console.log('Un client est connecté !');
 
+  socket.on('newPseudo', function (message) {
+    console.log('Un client me parle ! Il me dit : ' + message);
+  });
+
 });
 
 
