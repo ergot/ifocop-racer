@@ -6,11 +6,12 @@
   "author": "ergot <wjose14@hotmail.com>",
   "license": "MIT",
   "scripts": {
-    "start" : "node_modules/nodemon/bin/nodemon.js"
+    "start": "node_modules/nodemon/bin/nodemon.js"
   },
   "dependencies": {
     "express": "^4.15.2",
     "mongodb": "^2.2.24",
+    "mongoose": "^4.8.6",
     "nodemon": "^1.11.0",
     "socket.io": "^1.7.3"
   }
