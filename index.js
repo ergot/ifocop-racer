@@ -33,6 +33,7 @@ db.once('open', function() {
 });
 
 
+// Routing
 app.get('/', function (req, res) {
   res.sendFile(__dirname + '/index.html');
 });
@@ -53,6 +54,22 @@ io.sockets.on('connection', function (socket) {
     }
 
     //speudo deja utiliser
+    Player.count({ 'speudo': speudo }, function (err, count) {
+      if (err) return handleError(err);
+      console.log('there are %d player', count);
+
+      if(count > 0) {
+        response.code = 451;
+        response.message = 'speudo deja pris';
+        socket.emit('newPseudo', response);
+      }else{
+        response.code = 200;
+        response.message = 'nouveau speudo';
+        socket.emit('newPseudo', response);
+      }
+
+    });
+
 
     //speudo ok
 
