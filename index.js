@@ -41,8 +41,23 @@ io.sockets.on('connection', function (socket) {
 
   console.log('Un client est connecté !');
 
-  socket.on('newPseudo', function (message) {
-    console.log('Un client me parle ! Il me dit : ' + message);
+  socket.on('newPseudo', function (speudo) {
+    var response = {code:'', message: ''};
+    speudo = speudo.trim();
+    //speudo vide ou blank
+    if (!speudo) {
+      console.log('chaine vide');
+      response.code = 401;
+      response.message = 'speudo vide';
+      socket.emit('newPseudo', response);
+    }
+
+    //speudo deja utiliser
+
+    //speudo ok
+
+    //debug
+    console.log('on.newspeudo:'+speudo);
   });
 
 });

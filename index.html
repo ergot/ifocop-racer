@@ -7,20 +7,30 @@
     <title>Ifocop - Racer </title>
     <script src="/socket.io/socket.io.js"></script>
     <script>
-      var socket = io.connect('http://localhost:3000');
+        var socket = io.connect('http://localhost:3000');
     </script>
 
     <script>
 
         window.addEventListener('load', function (){
+            //form
             var form = document.getElementsByTagName('form')[0];
+            var formMessage = document.getElementById('formMessage');
             form.addEventListener('submit', function(e){
               e.preventDefault();
+              formMessage.innerText = '';
               var inputSpeudo = document.getElementById('speudo').value;
-
               socket.emit('newPseudo', inputSpeudo);
-
             });
+
+          socket.on('newPseudo', function (message) {
+            switch (message.code)    {
+              case 401:
+                formMessage.innerText = message.message;
+                console.log(message.message);
+            }
+
+          })
 
         })
     </script>
@@ -39,11 +49,12 @@
         </div>
         <div class="col-sm-4">
             <p> le form speudo</p>
-            <form action="op">
+            <form action="#">
                 <div class="form-group">
                     <label for="speudo">Entrez votre speudo</label>
-                    <input type="text" class="form-control" id="speudo" required="required" pattern="[A-Za-z0-9]{1,20}">
+                    <input type="text" class="form-control" id="speudo" required="required">
                 </div>
+                <p id="formMessage"></p>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
