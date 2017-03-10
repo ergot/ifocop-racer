@@ -34,7 +34,7 @@
                 console.log(message.message);
                 break;
               case 200:
-                formMessage.innerText = message.message;
+                form.style.display='none';
                 console.log(message.message);
                 break;
             }
@@ -54,9 +54,33 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-sm-8">col-8
+        <div class="col-sm-7" style="background-color: #e3f2fd;">
+            <p>une image de preview ?</p>
+
+            <div class="row row-player1">
+                <div style="height: 80px; background-color: aqua">
+                    <div style="background-color: rebeccapurple">
+                        <div class="avatar"  style="height:50px;width:50px;background-color: chartreuse"></div>
+                        <div class="playerSpeudo" style="height:30px;width:50px;background-color: red"> speudo ici</div>
+                    </div>
+                </div>
+            </div>
+
+            <p></p>
+
+            <div class="row row-player2">
+                <div style="height: 80px; background-color: aqua">
+                    <div style="background-color: rebeccapurple">
+                        <div class="avatar"  style="height:50px;width:50px;background-color: chartreuse"></div>
+                        <div class="playerSpeudo" style="height:30px;width:50px;background-color: red"> speudo ici 2222</div>
+                    </div>
+                </div>
+            </div>
+
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-1"></div>
+        <!--<div class="col-sm-1"></div>-->
+        <div class="col-sm-3" style="background-color: #e3f2fd;">
             <p> le form speudo</p>
             <form action="#">
                 <div class="form-group">
