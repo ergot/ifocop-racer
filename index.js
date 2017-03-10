@@ -53,7 +53,7 @@ io.sockets.on('connection', function (socket) {
       socket.emit('newPseudo', response);
     }
 
-    //speudo deja utiliser
+    //speudo deja utiliser || new speudo
     Player.count({ 'speudo': speudo }, function (err, count) {
       if (err) return handleError(err);
       console.log('there are %d player', count);
@@ -63,15 +63,16 @@ io.sockets.on('connection', function (socket) {
         response.message = 'speudo deja pris';
         socket.emit('newPseudo', response);
       }else{
-        response.code = 200;
-        response.message = 'nouveau speudo';
-        socket.emit('newPseudo', response);
+
+        var player = new Player({ speudo: speudo });
+        player.save(function (err) {
+          if (err) return handleError(err);
+          response.code = 200;
+          response.message = 'nouveau speudo';
+          socket.emit('newPseudo', response);
+        });
       }
-
     });
-
-
-    //speudo ok
 
     //debug
     console.log('on.newspeudo:'+speudo);
