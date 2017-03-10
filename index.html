@@ -16,8 +16,9 @@
             var form = document.getElementsByTagName('form')[0];
             form.addEventListener('submit', function(e){
               e.preventDefault();
+              var inputSpeudo = document.getElementById('speudo').value;
 
-              socket.emit('newPseudo', 'input serveur');
+              socket.emit('newPseudo', inputSpeudo);
 
             });
 
@@ -41,7 +42,7 @@
             <form action="op">
                 <div class="form-group">
                     <label for="speudo">Entrez votre speudo</label>
-                    <input type="text" class="form-control" id="speudo" required>
+                    <input type="text" class="form-control" id="speudo" required="required" pattern="[A-Za-z0-9]{1,20}">
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
