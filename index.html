@@ -39,8 +39,23 @@
                 console.log(message.message);
                 break;
             }
+          });
 
-          })
+          socket.on('track', function (message) {
+            switch (message.code)    {
+              case 404:
+                document.getElementById('trackInfo').textContent=message.message;
+                document.getElementsByClassName('row-player1')[0].style.visibility='visible';
+                break;
+              case 200:
+                document.getElementById('trackInfo').textContent=message.message;
+                document.getElementsByClassName('row-player1')[0].style.visibility='visible';
+                document.getElementsByClassName('row-player2')[0].style.visibility='visible';
+                break;
+            }
+            console.log(message);
+
+          });
 
         })
     </script>
@@ -54,11 +69,12 @@
 </nav>
 
 <div class="container">
+
     <div class="row">
         <div class="col-sm-7" style="background-color: #e3f2fd;">
-            <p>une image de preview ?</p>
+            <p id="trackInfo">Merci de vous connecter</p>
 
-            <div class="row row-player1">
+            <div class="row row-player1" style="visibility: hidden;">
                 <div style="height: 80px; background-color: aqua">
                     <div style="background-color: rebeccapurple">
                         <div class="avatar"  style="height:50px;width:50px;background-color: chartreuse"></div>
@@ -69,7 +85,7 @@
 
             <p></p>
 
-            <div class="row row-player2">
+            <div class="row row-player2" style="visibility: hidden;" >
                 <div style="height: 80px; background-color: aqua">
                     <div style="background-color: rebeccapurple">
                         <div class="avatar"  style="height:50px;width:50px;background-color: chartreuse"></div>
@@ -80,7 +96,7 @@
 
         </div>
         <div class="col-sm-1"></div>
-        <!--<div class="col-sm-1"></div>-->
+
         <div class="col-sm-3" style="background-color: #e3f2fd;">
             <p> le form speudo</p>
             <form action="#">
@@ -115,6 +131,7 @@
                         <td>3411</td>
                         <td>65:00</td>
                     </tr>
+                </table>
             </div>
         </div>
     </div>

@@ -32,6 +32,12 @@ io.sockets.on('connection', function (socket) {
 
   console.log('Un client est connecté !');
 
+  if (io.engine.clientsCount > 2) {
+    socket.emit('track', {code:503, message: 'limit de joueur atteint'});
+    socket.disconnect();
+    console.log('client deconnecter');
+  }
+
   socket.on('newPseudo', function (speudo) {
     var response = {code:'', message: ''};
     speudo = speudo.trim();
@@ -46,7 +52,6 @@ io.sockets.on('connection', function (socket) {
     //speudo deja utiliser || new speudo
     Player.count({ 'speudo': speudo }, function (err, count) {
       if (err) return handleError(err);
-      console.log('there are %d player', count);
 
       if(count > 0) {
         response.code = 451;
@@ -60,15 +65,15 @@ io.sockets.on('connection', function (socket) {
           response.code = 200;
           response.message = 'nouveau speudo';
           socket.emit('newPseudo', response);
+
+          if (io.engine.clientsCount === 1) socket.emit('track', {code:404, message: 'en attente d un autre joueurs'});
+          if (io.engine.clientsCount === 2) {
+            io.sockets.emit('track', {code:200, message: 'la partie peut commencer quand vous voulez, appuyer sur la barre espace pour faire avancer votre avatar'});
+          }
         });
       }
     });
-
-    //debug
-    console.log('on.newspeudo:'+speudo);
   });
-
 });
-
 
 server.listen(3000);
