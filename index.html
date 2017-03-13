@@ -86,7 +86,19 @@
                 step(flagKeydown);
                 break;
             }
-            console.log(message);
+
+          });
+
+          socket.on('trackMove', function (message) {
+            if (message.px1) {
+              var px = parseInt(document.getElementsByClassName('trackMove1')[0].style.marginLeft,10);
+              document.getElementsByClassName('trackMove1')[0].style.marginLeft=message.px1+px+'px';
+            }
+
+            if (message.px2) {
+              var px = parseInt(document.getElementsByClassName('trackMove2')[0].style.marginLeft,10);
+              document.getElementsByClassName('trackMove2')[0].style.marginLeft=message.px2+px+'px';
+            }
           });
 
         })
@@ -107,8 +119,8 @@
             <p id="trackInfo">Merci de vous connecter</p>
 
             <div class="row row-player1" style="visibility: hidden;">
-                <div style="height: 80px; background-color: aqua">
-                    <div style="background-color: rebeccapurple">
+                <div  style="height: 80px; background-color: aqua">
+                    <div class="trackMove1" style="background-color: rebeccapurple;margin-left: 0px;">
                         <div class="avatar"  style="height:50px;width:50px;background-color: chartreuse"></div>
                         <div class="playerSpeudo1" style="height:30px;width:50px;background-color: red"> speudo ici</div>
                     </div>
@@ -118,8 +130,8 @@
             <p></p>
 
             <div class="row row-player2" style="visibility: hidden;" >
-                <div style="height: 80px; background-color: aqua">
-                    <div style="background-color: rebeccapurple">
+                <div  style="height: 80px; background-color: aqua">
+                    <div class="trackMove2" style="background-color: rebeccapurple;margin-left: 0px;">
                         <div class="avatar"  style="height:50px;width:50px;background-color: chartreuse"></div>
                         <div class="playerSpeudo2" style="height:30px;width:50px;background-color: red"> speudo ici 2222</div>
                     </div>

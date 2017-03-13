@@ -105,11 +105,16 @@ io.sockets.on('connection', function (socket) {
               message: 'la partie peut commencer quand vous voulez, appuyer sur la barre espace pour faire avancer votre avatar',
               speudo2: player.speudo
             });
+
           }
 
           socket.on('trackMove', function (message) {
+            var speedPx = 2;
             console.log(`${player.speudo}: ${message}`);
+            socket.emit('trackMove', {px1:speedPx});
+            socket.broadcast.emit('trackMove', {px2:speedPx});
           });
+
 
           socket.on('disconnect', function() {
             speudoBag.remove(player.speudo);
