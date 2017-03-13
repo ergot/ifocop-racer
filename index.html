@@ -43,6 +43,9 @@
 
           socket.on('track', function (message) {
             switch (message.code)    {
+              case 503:
+                document.getElementById('trackInfo').textContent=message.message;
+                break;
               case 404:
                 document.getElementById('trackInfo').textContent=message.message;
                 document.getElementsByClassName('row-player1')[0].style.visibility='visible';
