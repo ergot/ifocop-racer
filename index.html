@@ -57,7 +57,11 @@
                 document.getElementsByClassName('row-player2')[0].style.visibility='visible';
                 document.getElementsByClassName('playerSpeudo1')[0].textContent=message.speudo1;
                 document.getElementsByClassName('playerSpeudo2')[0].textContent=message.speudo2;
-
+                break;
+              case 202:
+                document.getElementById('trackInfo').textContent=message.message;
+                document.getElementsByClassName('row-player2')[0].style.visibility='visible';
+                document.getElementsByClassName('playerSpeudo2')[0].textContent=message.speudo2;
                 break;
             }
             console.log(message);

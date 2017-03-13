@@ -97,13 +97,21 @@ io.sockets.on('connection', function (socket) {
           }
           if (speudoBag.bag.length === 2) {
 
-            io.sockets.emit('track', {
+            socket.emit('track', {
               code:200,
               message: 'la partie peut commencer quand vous voulez, appuyer sur la barre espace pour faire avancer votre avatar',
               speudo1: player.speudo,
               speudo2: speudoBag.competitor(player.speudo)
               //speudo2: 'speduo2'
             });
+
+            //updarte player 1
+            socket.broadcast.emit('track', {
+              code: 202,
+              message: 'la partie peut commencer quand vous voulez, appuyer sur la barre espace pour faire avancer votre avatar',
+              speudo2: player.speudo
+            });
+
           }
 
           socket.on('disconnect', function() {
