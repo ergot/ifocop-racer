@@ -24,7 +24,7 @@
             });
 
           socket.on('newPseudo', function (message) {
-            switch (message.code)    {
+            switch (message.code) {
               case 401:
                 formMessage.innerText = message.message;
                 console.log(message.message);
@@ -49,15 +49,18 @@
               case 404:
                 document.getElementById('trackInfo').textContent=message.message;
                 document.getElementsByClassName('row-player1')[0].style.visibility='visible';
+                document.getElementsByClassName('playerSpeudo1')[0].textContent=message.speudo1;
                 break;
               case 200:
                 document.getElementById('trackInfo').textContent=message.message;
                 document.getElementsByClassName('row-player1')[0].style.visibility='visible';
                 document.getElementsByClassName('row-player2')[0].style.visibility='visible';
+                document.getElementsByClassName('playerSpeudo1')[0].textContent=message.speudo1;
+                document.getElementsByClassName('playerSpeudo2')[0].textContent=message.speudo2;
+
                 break;
             }
             console.log(message);
-
           });
 
         })
@@ -81,7 +84,7 @@
                 <div style="height: 80px; background-color: aqua">
                     <div style="background-color: rebeccapurple">
                         <div class="avatar"  style="height:50px;width:50px;background-color: chartreuse"></div>
-                        <div class="playerSpeudo" style="height:30px;width:50px;background-color: red"> speudo ici</div>
+                        <div class="playerSpeudo1" style="height:30px;width:50px;background-color: red"> speudo ici</div>
                     </div>
                 </div>
             </div>
@@ -92,7 +95,7 @@
                 <div style="height: 80px; background-color: aqua">
                     <div style="background-color: rebeccapurple">
                         <div class="avatar"  style="height:50px;width:50px;background-color: chartreuse"></div>
-                        <div class="playerSpeudo" style="height:30px;width:50px;background-color: red"> speudo ici 2222</div>
+                        <div class="playerSpeudo2" style="height:30px;width:50px;background-color: red"> speudo ici 2222</div>
                     </div>
                 </div>
             </div>

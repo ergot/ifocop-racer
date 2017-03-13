@@ -28,25 +28,42 @@ app.get('/', function (req, res) {
   res.sendFile(__dirname + '/index.html');
 });
 
+var speudoBag = {
+  bag: [],
+  add: function (speudo) {
+    this.bag.push(speudo);
+  },
+  remove: function (speudo) {
+    var index = this.bag.indexOf(speudo);
+    if (index > -1) this.bag.splice(index, 1);
+  },
+  competitor: function (speudo) {
+    return this.bag.filter(function(element){
+      return (element != speudo)
+    })[0];
+  }
+};
+
 io.sockets.on('connection', function (socket) {
 
   console.log('Un client est connecté !');
 
-  if (io.engine.clientsCount > 2) {
-    socket.emit('track', {code:503, message: 'limit de joueur atteint'});
-    socket.disconnect();
-    console.log('client deconnecter');
-  }
-
   socket.on('newPseudo', function (speudo) {
+
+    if (speudoBag.bag.length > 2) {
+      socket.emit('track', {code:503, message: 'limit de joueur atteint'});
+      socket.disconnect();
+      console.log('client deconnecter');
+    }
+
     var response = {code:'', message: ''};
     speudo = speudo.trim();
     //speudo vide ou blank
     if (!speudo) {
       console.log('chaine vide');
-      response.code = 401;
-      response.message = 'speudo vide';
-      socket.emit('newPseudo', response);
+      //response.code = 401;
+      //response.message = ;
+      socket.emit('newPseudo', {code: 401, message: 'speudo vide'});
     }
 
     //speudo deja utiliser || new speudo
@@ -54,22 +71,45 @@ io.sockets.on('connection', function (socket) {
       if (err) return handleError(err);
 
       if(count > 0) {
-        response.code = 451;
-        response.message = 'speudo deja pris';
-        socket.emit('newPseudo', response);
-      }else{
+        //response.code = 451;
+        //response.message = 'speudo deja pris';
+        socket.emit('newPseudo', {code: 451, message: 'speudo deja pris'});
+      } else {
 
         var player = new Player({ speudo: speudo });
+
         player.save(function (err) {
           if (err) return handleError(err);
-          response.code = 200;
-          response.message = 'nouveau speudo';
-          socket.emit('newPseudo', response);
+          //response.code = 200;
+          //response.message = 'nouveau speudo';
+          socket.emit('newPseudo', {code:200, message:'nouveau speudo'});
 
-          if (io.engine.clientsCount === 1) socket.emit('track', {code:404, message: 'en attente d un autre joueurs'});
-          if (io.engine.clientsCount === 2) {
-            io.sockets.emit('track', {code:200, message: 'la partie peut commencer quand vous voulez, appuyer sur la barre espace pour faire avancer votre avatar'});
+          speudoBag.add(player.speudo);
+
+          if (speudoBag.bag.length === 1) {
+
+            socket.emit('track', {
+              code:404,
+              message: 'en attente d un autre joueurs',
+              speudo1: player.speudo
+            });
+
           }
+          if (speudoBag.bag.length === 2) {
+
+            io.sockets.emit('track', {
+              code:200,
+              message: 'la partie peut commencer quand vous voulez, appuyer sur la barre espace pour faire avancer votre avatar',
+              speudo1: player.speudo,
+              speudo2: speudoBag.competitor(player.speudo)
+              //speudo2: 'speduo2'
+            });
+          }
+
+          socket.on('disconnect', function() {
+            speudoBag.remove(player.speudo);
+          })
+
         });
       }
     });
