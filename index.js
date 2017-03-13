@@ -61,8 +61,6 @@ io.sockets.on('connection', function (socket) {
     //speudo vide ou blank
     if (!speudo) {
       console.log('chaine vide');
-      //response.code = 401;
-      //response.message = ;
       socket.emit('newPseudo', {code: 401, message: 'speudo vide'});
     }
 
@@ -71,8 +69,6 @@ io.sockets.on('connection', function (socket) {
       if (err) return handleError(err);
 
       if(count > 0) {
-        //response.code = 451;
-        //response.message = 'speudo deja pris';
         socket.emit('newPseudo', {code: 451, message: 'speudo deja pris'});
       } else {
 
@@ -80,8 +76,6 @@ io.sockets.on('connection', function (socket) {
 
         player.save(function (err) {
           if (err) return handleError(err);
-          //response.code = 200;
-          //response.message = 'nouveau speudo';
           socket.emit('newPseudo', {code:200, message:'nouveau speudo'});
 
           speudoBag.add(player.speudo);
@@ -111,7 +105,6 @@ io.sockets.on('connection', function (socket) {
               message: 'la partie peut commencer quand vous voulez, appuyer sur la barre espace pour faire avancer votre avatar',
               speudo2: player.speudo
             });
-
           }
 
           socket.on('disconnect', function() {

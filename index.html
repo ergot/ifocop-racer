@@ -12,6 +12,24 @@
 
     <script>
 
+      var flagKeydown = true;
+
+        function step(flagKeydown){
+          window.addEventListener("keydown", function(e){
+            if (flagKeydown && e.keyCode == 32) {
+              console.log(e.keyCode);
+              flagKeydown = false;
+            }
+          });
+          window.addEventListener("keyup", function(e){
+
+            if (!flagKeydown && e.keyCode == 32) {
+              flagKeydown = true;
+            }
+          });
+        }
+
+
         window.addEventListener('load', function (){
             //form
             var form = document.getElementsByTagName('form')[0];
@@ -42,6 +60,7 @@
           });
 
           socket.on('track', function (message) {
+
             switch (message.code)    {
               case 503:
                 document.getElementById('trackInfo').textContent=message.message;
@@ -57,11 +76,13 @@
                 document.getElementsByClassName('row-player2')[0].style.visibility='visible';
                 document.getElementsByClassName('playerSpeudo1')[0].textContent=message.speudo1;
                 document.getElementsByClassName('playerSpeudo2')[0].textContent=message.speudo2;
+                step(flagKeydown);
                 break;
               case 202:
                 document.getElementById('trackInfo').textContent=message.message;
                 document.getElementsByClassName('row-player2')[0].style.visibility='visible';
                 document.getElementsByClassName('playerSpeudo2')[0].textContent=message.speudo2;
+                step(flagKeydown);
                 break;
             }
             console.log(message);
