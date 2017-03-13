@@ -18,6 +18,7 @@
           window.addEventListener("keydown", function(e){
             if (flagKeydown && e.keyCode == 32) {
               console.log(e.keyCode);
+              socket.emit('trackMove', '+1');
               flagKeydown = false;
             }
           });

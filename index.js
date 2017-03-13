@@ -107,6 +107,10 @@ io.sockets.on('connection', function (socket) {
             });
           }
 
+          socket.on('trackMove', function (message) {
+            console.log(`${player.speudo}: ${message}`);
+          });
+
           socket.on('disconnect', function() {
             speudoBag.remove(player.speudo);
           })
