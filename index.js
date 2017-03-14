@@ -81,6 +81,12 @@ io.sockets.on('connection', function (socket) {
         socket.emit('newPseudo', {code: 451, message: 'speudo deja pris'});
       } else {
 
+        Player.find({}).sort({'_id': -1}).exec(function(err,player) {
+          if (err) return console.error(err);
+          console.log(player);
+          io.emit('scoreboard', player);
+        });
+
         var player = new Player({ speudo: speudo });
 
         player.save(function (err) {
@@ -114,7 +120,6 @@ io.sockets.on('connection', function (socket) {
               message: 'la partie peut commencer quand vous voulez, appuyer sur la barre espace pour faire avancer votre avatar',
               speudo2: player.speudo
             });
-
           }
 
           socket.on('trackMove', function (message) {
@@ -132,7 +137,7 @@ io.sockets.on('connection', function (socket) {
               if (!hasWinner) {
                 hasWinner = true;
                 player.score += 1;
-              }else {
+              } else {
                 hasWinner = false;
               }
 
@@ -147,12 +152,8 @@ io.sockets.on('connection', function (socket) {
                   console.log(player);
                   io.emit('scoreboard', player);
                 });
-
               });
-
-
             }
-
           });
 
           socket.on('disconnect', function() {
