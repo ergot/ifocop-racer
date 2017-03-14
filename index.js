@@ -11,8 +11,8 @@ mongoose.connect('mongodb://localhost/racer');
 //database player schema
 var playerSchema = mongoose.Schema({
   speudo: String,
-  time: Number,
-  score: Number,
+  time: {type:Number, default:0},
+  score: {type:Number, default:0}
 });
 //database player model
 var Player = mongoose.model('Player', playerSchema);
@@ -48,6 +48,7 @@ var speudoBag = {
 
 var defaultSpeed = 10;
 var defaultTrackLength = 100;
+var hasWinner = false;
 
 io.sockets.on('connection', function (socket) {
 
@@ -128,7 +129,12 @@ io.sockets.on('connection', function (socket) {
               dateEnd =  new Date() - dateStart;
               console.log(`fin de la game en: ${dateEnd} pour ${player.speudo}`);
 
-              player.time = dateEnd;
+              if (!hasWinner) {
+                hasWinner = true;
+                player.score += 1;
+              }
+
+              player.time += dateEnd;
 
               player.save(function (err) {
                 if (err) return console.error(err);
