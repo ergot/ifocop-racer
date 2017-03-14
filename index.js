@@ -132,6 +132,8 @@ io.sockets.on('connection', function (socket) {
               if (!hasWinner) {
                 hasWinner = true;
                 player.score += 1;
+              }else {
+                hasWinner = false;
               }
 
               player.time += dateEnd;
@@ -139,7 +141,16 @@ io.sockets.on('connection', function (socket) {
               player.save(function (err) {
                 if (err) return console.error(err);
                 console.log('player save run time');
+
+                Player.find({}).sort({'_id': -1}).exec(function(err,player) {
+                  if (err) return console.error(err);
+                  console.log(player);
+                  io.emit('scoreboard', player);
+                });
+
               });
+
+
             }
 
           });

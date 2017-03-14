@@ -105,6 +105,28 @@
             }
           });
 
+          socket.on('scoreboard', function (players) {
+
+            document.getElementById('scoreboard').innerHTML = "";
+            var render = '';
+
+            players.forEach(function(player){
+
+              var template = `<tr>
+                                <td>${player.speudo}|</td>
+                                <td>${player.score}|</td>
+                                 <td>${player.time/1000} s</td>
+                              </tr>`;
+
+              render += template;
+              console.log(player.score);
+            });
+
+            document.getElementById('scoreboard').innerHTML = render;
+
+
+          });
+
         })
     </script>
 
@@ -164,6 +186,8 @@
                         <th>Score</th>
                         <th>Durée</th>
                     </tr>
+                </table>
+                <table id="scoreboard">
                     <tr>
                         <td>Alfreds</td>
                         <td>563</td>
