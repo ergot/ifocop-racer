@@ -91,13 +91,17 @@
 
           socket.on('trackMove', function (message) {
             if (message.px1) {
-              var px = parseInt(document.getElementsByClassName('trackMove1')[0].style.marginLeft,10);
-              document.getElementsByClassName('trackMove1')[0].style.marginLeft=message.px1+px+'px';
+              var witdhDiv = document.getElementsByClassName('row-player1')[0].clientWidth;
+              //var px = parseInt(document.getElementsByClassName('trackMove1')[0].style.marginLeft,10);
+              var newPx = message.px1*witdhDiv;
+              document.getElementsByClassName('trackMove1')[0].style.marginLeft=newPx+'px';
             }
 
             if (message.px2) {
-              var px = parseInt(document.getElementsByClassName('trackMove2')[0].style.marginLeft,10);
-              document.getElementsByClassName('trackMove2')[0].style.marginLeft=message.px2+px+'px';
+              var witdhDiv = document.getElementsByClassName('row-player1')[0].clientWidth;
+              var newPx = message.px2*witdhDiv;
+              //var px = parseInt(document.getElementsByClassName('trackMove2')[0].style.marginLeft,10);
+              document.getElementsByClassName('trackMove2')[0].style.marginLeft=newPx+'px';
             }
           });
 

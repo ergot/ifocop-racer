@@ -44,9 +44,13 @@ var speudoBag = {
   }
 };
 
+var defaultSpeed = 10;
+var defaultTrackLength = 100;
+
 io.sockets.on('connection', function (socket) {
 
   console.log('Un client est connecté !');
+  var playerPositionInTrack = 0;
 
   socket.on('newPseudo', function (speudo) {
 
@@ -109,12 +113,12 @@ io.sockets.on('connection', function (socket) {
           }
 
           socket.on('trackMove', function (message) {
-            var speedPx = 2;
             console.log(`${player.speudo}: ${message}`);
-            socket.emit('trackMove', {px1:speedPx});
-            socket.broadcast.emit('trackMove', {px2:speedPx});
+            playerPositionInTrack += defaultSpeed;
+            var pxInP = playerPositionInTrack/defaultTrackLength;
+            socket.emit('trackMove', {px1:pxInP});
+            socket.broadcast.emit('trackMove', {px2:pxInP});
           });
-
 
           socket.on('disconnect', function() {
             speudoBag.remove(player.speudo);
