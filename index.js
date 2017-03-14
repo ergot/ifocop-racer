@@ -51,6 +51,8 @@ io.sockets.on('connection', function (socket) {
 
   console.log('Un client est connecté !');
   var playerPositionInTrack = 0;
+  var dateStart = 0;
+  var dateEnd = 0;
 
   socket.on('newPseudo', function (speudo) {
 
@@ -113,11 +115,18 @@ io.sockets.on('connection', function (socket) {
           }
 
           socket.on('trackMove', function (message) {
-            console.log(`${player.speudo}: ${message}`);
+
             playerPositionInTrack += defaultSpeed;
             var pxInP = playerPositionInTrack/defaultTrackLength;
-            socket.emit('trackMove', {px1:pxInP});
-            socket.broadcast.emit('trackMove', {px2:pxInP});
+            if (pxInP <= 1) socket.emit('trackMove', {px1:pxInP});
+            if (pxInP <= 1) socket.broadcast.emit('trackMove', {px2:pxInP});
+
+            if (dateStart == 0) dateStart = new Date();
+            if ( pxInP >= 1 &&  dateEnd == 0) {
+              dateEnd =  new Date() - dateStart;
+              console.log(`fin de la game en: ${dateEnd} pour ${player.speudo}`);
+            }
+
           });
 
           socket.on('disconnect', function() {
