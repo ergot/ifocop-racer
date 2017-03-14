@@ -10,7 +10,9 @@ mongoose.connect('mongodb://localhost/racer');
 
 //database player schema
 var playerSchema = mongoose.Schema({
-  speudo: String
+  speudo: String,
+  time: Number,
+  score: Number,
 });
 //database player model
 var Player = mongoose.model('Player', playerSchema);
@@ -125,6 +127,13 @@ io.sockets.on('connection', function (socket) {
             if ( pxInP >= 1 &&  dateEnd == 0) {
               dateEnd =  new Date() - dateStart;
               console.log(`fin de la game en: ${dateEnd} pour ${player.speudo}`);
+
+              player.time = dateEnd;
+
+              player.save(function (err) {
+                if (err) return console.error(err);
+                console.log('player save run time');
+              });
             }
 
           });
