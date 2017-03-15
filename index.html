@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-    <title>Ifocop - Racer </title>
+    <title>Saint Patrick Racer</title>
     <script src="/socket.io/socket.io.js"></script>
     <script>
         var socket = io.connect('http://localhost:3000');
@@ -49,7 +49,7 @@
                 console.log(message.message);
                 break;
               case 451:
-                formMessage.innerText = message.message;
+                formMessage.innerHTML = message.message;
                 console.log(message.message);
                 break;
               case 200:
@@ -110,7 +110,7 @@
             document.getElementById('scoreboard').innerHTML = "";
             var render = '';
 
-            players.forEach(function(player){
+            players.forEach(function(player) {
 
               var template = `<tr>
                                 <td>${player.speudo}|</td>
@@ -129,19 +129,34 @@
         })
     </script>
 
+    <style>
+        body {
+            color: white;
+        }
+
+        .background {
+            background-color: #11793d;
+        }
+
+    </style>
+
 </head>
 <body>
 
 <!-- As a heading -->
-<nav class="navbar navbar-light bg-faded" style="background-color: #e3f2fd;">
-    <h1 class="text-center">Speed Racer Project</h1>
+<nav class="navbar navbar-light bg-faded background">
+    <h1 class="text-center">Saint Patrick Racer</h1>
 </nav>
 
 <div class="container">
 
     <div class="row">
-        <div class="col-sm-7" style="background-color: #e3f2fd;">
-            <p id="trackInfo">Merci de vous connecter</p>
+        <div class="col-sm-7 background">
+            <p id="trackInfo">
+                <div class="text-center">
+                    <h3>Merci de vous connecter</h3>
+                </div>
+            </p>
 
             <div class="row row-player1" style="visibility: hidden;">
                 <div  style="height: 80px; background-color: aqua">
@@ -170,15 +185,17 @@
         </div>
         <div class="col-sm-1"></div>
 
-        <div class="col-sm-3" style="background-color: #e3f2fd;">
-            <p> le form speudo</p>
+        <div class="col-sm-3 background" >
             <form action="#">
                 <div class="form-group">
-                    <label for="speudo">Entrez votre speudo</label>
+                    <label for="speudo" class="text-center">Entrez votre speudo</label>
                     <input type="text" class="form-control" id="speudo" required="required">
                 </div>
-                <p id="formMessage"></p>
-                <button type="submit" class="btn btn-primary">Submit</button>
+
+                    <div id="formMessage"></div>
+
+
+                <button type="submit" class="btn btn-default">Submit</button>
             </form>
 
             <div class="row table" style="visibility: hidden;">
@@ -196,31 +213,11 @@
                         <td>563</td>
                         <td>56:78</td>
                     </tr>
-                    <tr>
-                        <td>Maria Anders</td>
-                        <td>3411</td>
-                        <td>65:00</td>
-                    </tr>
-                    <tr>
-                        <td>Germany</td>
-                        <td>3411</td>
-                        <td>65:00</td>
-                    </tr>
                 </table>
             </div>
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-
 
 </body>
 </html>

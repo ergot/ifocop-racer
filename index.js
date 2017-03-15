@@ -78,7 +78,7 @@ io.sockets.on('connection', function (socket) {
       if (err) return handleError(err);
 
       if(count > 0) {
-        socket.emit('newPseudo', {code: 451, message: 'speudo deja pris'});
+        socket.emit('newPseudo', {code: 451, message: '<p class="alert alert-danger"> pseudo deja pris</p>'});
       } else {
 
         Player.find({}).sort({'_id': -1}).exec(function(err,player) {
