@@ -59,18 +59,22 @@ io.sockets.on('connection', function (socket) {
 
   socket.on('newPseudo', function (speudo) {
 
-    if (speudoBag.bag.length > 2) {
-      socket.emit('track', {code:503, message: 'limit de joueur atteint'});
+    console.log(speudoBag.bag);
+
+    if (speudoBag.bag.length > 1) {
+      socket.emit('track', {code:503, message: `<div class="text-center"><h3>La room est plein, merci de revenir plus tard et de rafraichir la page</h3></div>`});
       socket.disconnect();
       console.log('client deconnecter');
+      return;
     }
 
-    var response = {code:'', message: ''};
+    //var response = {code:'', message: ''};
     speudo = speudo.trim();
     //speudo vide ou blank
-    if (!speudo) {
+    if (speudo == 0) {
       console.log('chaine vide');
-      socket.emit('newPseudo', {code: 401, message: 'speudo vide'});
+      socket.emit('newPseudo', {code: 401, message: '<p class="alert alert-danger"> pseudo vide</p>'});
+      return;
     }
 
     //speudo deja utiliser || new speudo
@@ -83,7 +87,7 @@ io.sockets.on('connection', function (socket) {
 
         Player.find({}).sort({'_id': -1}).exec(function(err,player) {
           if (err) return console.error(err);
-          console.log(player);
+          //console.log(player);
           io.emit('scoreboard', player);
         });
 

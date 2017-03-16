@@ -45,7 +45,7 @@
           socket.on('newPseudo', function (message) {
             switch (message.code) {
               case 401:
-                formMessage.innerText = message.message;
+                formMessage.innerHTML = message.message;
                 console.log(message.message);
                 break;
               case 451:
@@ -64,7 +64,8 @@
 
             switch (message.code)    {
               case 503:
-                document.getElementById('trackInfo').textContent=message.message;
+
+                document.getElementById('trackInfo').innerHTML=message.message;
                 break;
               case 404:
                 document.getElementById('trackInfo').textContent=message.message;
@@ -152,11 +153,11 @@
 
     <div class="row">
         <div class="col-sm-7 background">
-            <p id="trackInfo">
+            <div id="trackInfo">
                 <div class="text-center">
                     <h3>Merci de vous connecter</h3>
                 </div>
-            </p>
+            </div>
 
             <div class="row row-player1" style="visibility: hidden;">
                 <div  style="height: 80px; background-color: aqua">
@@ -188,7 +189,7 @@
         <div class="col-sm-3 background" >
             <form action="#">
                 <div class="form-group">
-                    <label for="speudo" class="text-center">Entrez votre speudo</label>
+                    <label for="speudo" class="text-center">Entrez votre pseudo</label>
                     <input type="text" class="form-control" id="speudo" required="required">
                 </div>
 
