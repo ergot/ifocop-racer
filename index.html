@@ -54,7 +54,7 @@
                 break;
               case 200:
                 form.style.display='none';
-                document.getElementsByClassName('table')[0].style.visibility='visible';
+                document.getElementById('table').style.visibility='visible';
                 console.log(message.message);
                 break;
             }
@@ -64,7 +64,6 @@
 
             switch (message.code)    {
               case 503:
-
                 document.getElementById('trackInfo').innerHTML=message.message;
                 break;
               case 404:
@@ -93,7 +92,7 @@
           socket.on('trackMove', function (message) {
             if (message.px1) {
               var witdhDiv = document.getElementsByClassName('row-player1')[0].clientWidth;
-              //var px = parseInt(document.getElementsByClassName('trackMove1')[0].style.marginLeft,10);
+
               var newPx = message.px1*witdhDiv;
               document.getElementsByClassName('trackMove1')[0].style.marginLeft=newPx+'px';
             }
@@ -101,7 +100,7 @@
             if (message.px2) {
               var witdhDiv = document.getElementsByClassName('row-player1')[0].clientWidth;
               var newPx = message.px2*witdhDiv;
-              //var px = parseInt(document.getElementsByClassName('trackMove2')[0].style.marginLeft,10);
+
               document.getElementsByClassName('trackMove2')[0].style.marginLeft=newPx+'px';
             }
           });
@@ -109,19 +108,29 @@
           socket.on('scoreboard', function (players) {
 
             document.getElementById('scoreboard').innerHTML = "";
-            var render = '';
+
+            var render = `<thead>
+                            <tr>
+                                <th>Pseudo</th>
+                                <th>Score</th>
+                                <th>Durée</th>
+                            </tr>
+                           </thead>`;
+
+            render += '<tbody>';
 
             players.forEach(function(player) {
 
               var template = `<tr>
-                                <td>${player.speudo}|</td>
-                                <td>${player.score}|</td>
+                                <td>${player.speudo}</td>
+                                <td>${player.score}</td>
                                  <td>${player.time/1000} s</td>
                               </tr>`;
 
               render += template;
-              console.log(player.score);
+
             });
+            render += '</tbody>';
 
             document.getElementById('scoreboard').innerHTML = render;
 
@@ -219,6 +228,7 @@
         <div class="col-sm-1"></div>
 
         <div class="col-sm-3 background" >
+
             <form action="#">
                 <div class="form-group">
                     <label for="speudo" class="text-center">Entrez votre pseudo</label>
@@ -228,21 +238,23 @@
                 <button type="submit" class="btn btn-default">Submit</button>
             </form>
 
-            <div class="table" style="visibility: hidden;">
-                <h4 class="text-center">Tableau des Scores</h4>
-                <table class="table" style="background-color: #11793d;">
-                    <tr>
-                        <th>Pseudo</th>
-                        <th>Score</th>
-                        <th>Durée</th>
-                    </tr>
-                </table>
-                <table id="scoreboard">
-                    <tr>
-                        <td>N</td>
-                        <td>O</td>
-                        <td>P</td>
-                    </tr><div></div>
+            <div id="table" style="visibility: hidden;">
+                <!--<h4 class="text-center">Tableau des Scores</h4>-->
+                <table class="table" style="background-color: #11793d;" id="scoreboard">
+                    <thead>
+                        <tr>
+                            <th>Pseudo</th>
+                            <th>Score</th>
+                            <th>Durée</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>N</td>
+                            <td>O</td>
+                            <td>P</td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
