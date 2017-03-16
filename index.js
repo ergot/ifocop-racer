@@ -103,7 +103,7 @@ io.sockets.on('connection', function (socket) {
 
             socket.emit('track', {
               code:404,
-              message: 'en attente d un autre joueurs',
+              message: `<div class="text-center"><h5>En attente d un autre joueurs</h5></div>`,
               speudo1: player.speudo
             });
 
