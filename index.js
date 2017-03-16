@@ -153,7 +153,7 @@ io.sockets.on('connection', function (socket) {
 
                 Player.find({}).sort({'_id': -1}).exec(function(err,player) {
                   if (err) return console.error(err);
-                  console.log(player);
+                  //console.log(player);
                   io.emit('scoreboard', player);
                 });
               });
