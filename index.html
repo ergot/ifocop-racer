@@ -73,7 +73,7 @@
                 document.getElementsByClassName('playerSpeudo1')[0].textContent=message.speudo1;
                 break;
               case 200:
-                document.getElementById('trackInfo').textContent=message.message;
+                document.getElementById('trackInfo').innerHTML=message.message;
                 document.getElementsByClassName('row-player1')[0].style.visibility='visible';
                 document.getElementsByClassName('row-player2')[0].style.visibility='visible';
                 document.getElementsByClassName('playerSpeudo1')[0].textContent=message.speudo1;
@@ -81,7 +81,7 @@
                 step(flagKeydown);
                 break;
               case 202:
-                document.getElementById('trackInfo').textContent=message.message;
+                document.getElementById('trackInfo').innerHTML=message.message;
                 document.getElementsByClassName('row-player2')[0].style.visibility='visible';
                 document.getElementsByClassName('playerSpeudo2')[0].textContent=message.speudo2;
                 step(flagKeydown);
@@ -135,8 +135,40 @@
             color: white;
         }
 
+        .avatar {
+            height:50px;
+            width:50px;
+        }
+
         .background {
             background-color: #11793d;
+        }
+
+        .wood {
+            height: 80px;
+            background-color: #461F00;
+            border-right-style: dotted;
+            border-color: white;
+            border-width: 8px;
+        }
+
+        .pseudo {
+            height:30px;
+            width:50px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .flip {
+
+            width:50px;
+            height:50px;
+            -moz-transform: scaleX(-1);
+            -o-transform: scaleX(-1);
+            -webkit-transform: scaleX(-1);
+            transform: scaleX(-1);
+            filter: FlipH;
+            -ms-filter: "FlipH";
         }
 
     </style>
@@ -160,12 +192,12 @@
             </div>
 
             <div class="row row-player1" style="visibility: hidden;">
-                <div  style="height: 80px; background-color: aqua">
-                    <div class="trackMove1" style="background-color: rebeccapurple;margin-left: 0px;">
-                        <div class="avatar"  style="height:50px;width:50px;background-color: chartreuse">
-                            <img src="beer-128.png" style="width:50px;height:50px;">
+                <div  class="wood">
+                    <div class="trackMove1" style="margin-left: 0px;">
+                        <div class="avatar" >
+                            <img class="flip" src="beer-128.png" >
                         </div>
-                        <div class="playerSpeudo1" style="height:30px;width:50px;background-color: red"></div>
+                        <div class="playerSpeudo1 pseudo"></div>
                     </div>
                 </div>
             </div>
@@ -173,12 +205,12 @@
             <p></p>
 
             <div class="row row-player2" style="visibility: hidden;" >
-                <div  style="height: 80px; background-color: aqua">
-                    <div class="trackMove2" style="background-color: rebeccapurple;margin-left: 0px;">
-                        <div class="avatar"  style="height:50px;width:50px;background-color: chartreuse">
-                            <img src="beer-128.png" style="width:50px;height:50px;">
+                <div  class="wood">
+                    <div class="trackMove2">
+                        <div class="avatar">
+                            <img class="flip" src="beer-128.png">
                         </div>
-                        <div class="playerSpeudo2" style="height:30px;width:50px;background-color: red"></div>
+                        <div class="playerSpeudo2 pseudo" ></div>
                     </div>
                 </div>
             </div>

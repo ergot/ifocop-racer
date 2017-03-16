@@ -112,7 +112,7 @@ io.sockets.on('connection', function (socket) {
 
             socket.emit('track', {
               code:200,
-              message: 'la partie peut commencer quand vous voulez, appuyer sur la barre espace pour faire avancer votre avatar',
+              message: '<div class="text-center"><h5>La partie peut commencer quand vous voulez, appuyer sur la barre espace pour faire avancer votre avatar</h5></div>',
               speudo1: player.speudo,
               speudo2: speudoBag.competitor(player.speudo)
               //speudo2: 'speduo2'
@@ -121,7 +121,7 @@ io.sockets.on('connection', function (socket) {
             //updarte player 1
             socket.broadcast.emit('track', {
               code: 202,
-              message: 'la partie peut commencer quand vous voulez, appuyer sur la barre espace pour faire avancer votre avatar',
+              message: '<div class="text-center"><h5>La partie peut commencer quand vous voulez, appuyer sur la barre espace pour faire avancer votre avatar</h5></div>',
               speudo2: player.speudo
             });
           }
