@@ -136,6 +136,10 @@
 
           });
 
+          socket.on('information', function(message){
+            document.getElementById('information').innerHTML=message;
+          })
+
         })
     </script>
 
@@ -180,6 +184,9 @@
             -ms-filter: "FlipH";
         }
 
+        #information {
+
+        }
         #table {
             height: 220px;
             overflow: auto;
@@ -264,6 +271,11 @@
             </div>
         </div>
     </div>
+</div>
+
+<div class="container">
+    <p></p>
+    <div class="row text-center" id="information"></div>
 </div>
 
 </body>

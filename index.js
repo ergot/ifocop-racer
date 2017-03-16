@@ -49,6 +49,8 @@ var speudoBag = {
 var defaultSpeed = 10;
 var defaultTrackLength = 100;
 var hasWinner = false;
+var timeWinner = 0;
+
 
 io.sockets.on('connection', function (socket) {
 
@@ -115,7 +117,6 @@ io.sockets.on('connection', function (socket) {
               message: '<div class="text-center"><h5>La partie peut commencer quand vous voulez, appuyer sur la barre espace pour faire avancer votre avatar</h5></div>',
               speudo1: player.speudo,
               speudo2: speudoBag.competitor(player.speudo)
-              //speudo2: 'speduo2'
             });
 
             //updarte player 1
@@ -139,10 +140,20 @@ io.sockets.on('connection', function (socket) {
               console.log(`fin de la game en: ${dateEnd} pour ${player.speudo}`);
 
               if (!hasWinner) {
+                timeWinner = dateEnd;
                 hasWinner = true;
                 player.score += 1;
+                var message = `<div class="alert alert-success" role="alert">
+                  Tu as gagné en ${dateEnd/1000} s
+                </div>`;
+                socket.emit('information', message);
               } else {
                 hasWinner = false;
+                var message = `<div class="alert alert-danger" role="alert">
+                  Tu as perdu de ${(dateEnd-timeWinner)/1000}s
+                </div>`;
+                socket.emit('information', message);
+                timeWinner = 0;
               }
 
               player.time += dateEnd;
