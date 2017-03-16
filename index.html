@@ -77,13 +77,13 @@
                 document.getElementsByClassName('row-player2')[0].style.visibility='visible';
                 document.getElementsByClassName('playerSpeudo1')[0].textContent=message.speudo1;
                 document.getElementsByClassName('playerSpeudo2')[0].textContent=message.speudo2;
-                step(flagKeydown);
+                //step(flagKeydown);
                 break;
               case 202:
                 document.getElementById('trackInfo').innerHTML=message.message;
                 document.getElementsByClassName('row-player2')[0].style.visibility='visible';
                 document.getElementsByClassName('playerSpeudo2')[0].textContent=message.speudo2;
-                step(flagKeydown);
+                //step(flagKeydown);
                 break;
             }
 
@@ -138,7 +138,16 @@
 
           socket.on('information', function(message){
             document.getElementById('information').innerHTML=message;
-          })
+          });
+
+          socket.on('crebour', function(message) {
+            console.log(message);
+            document.getElementById('trackInfo').innerHTML=message;
+          });
+
+          socket.on('runForest', function(message) {
+            step(flagKeydown);
+          });
 
         })
     </script>
@@ -211,6 +220,8 @@
                     <h3>Merci de vous connecter</h3>
                 </div>
             </div>
+
+            <div class="crebour"></div>
 
             <div class="row row-player1" style="visibility: hidden;">
                 <div  class="wood">

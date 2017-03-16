@@ -125,6 +125,23 @@ io.sockets.on('connection', function (socket) {
               message: '<div class="text-center"><h5>La partie peut commencer quand vous voulez, appuyer sur la barre espace pour faire avancer votre avatar</h5></div>',
               speudo2: player.speudo
             });
+
+              var compte = 10;
+
+              console.log('titac '+compte);
+              io.emit('crebour', `<div class="text-center"><h2>${compte}</h2></div>`);
+
+              var id = setInterval(function(socket){
+                compte--;
+                console.log('titac '+compte);
+                io.emit('crebour', `<div class="text-center"><h2>${compte}</h2></div>`);
+                if (compte == 0) {
+                  io.emit('crebour', `<div class="text-center"><h2>RUN</h2></div>`);
+                  io.emit('runForest', 'run');
+                  clearInterval(id);
+                }
+              }, 1000, socket);
+
           }
 
           socket.on('trackMove', function (message) {
