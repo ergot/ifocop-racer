@@ -149,6 +149,11 @@
             step(flagKeydown);
           });
 
+          //change img when loose or winid='player1
+          socket.on('img', function(message) {
+            document.getElementById(message.player).src = message.img+"-128.png";
+
+          });
         })
     </script>
 
@@ -218,7 +223,7 @@
             <div id="trackInfo">
                 <div class="text-center">
                     <h3>Règle du jeux:</h3>
-                    <p>A la fin du compte à rebours, appuyer sur la bar espace le plus longtemps et le plus rapidement possible</p>
+                    <h4>A la fin du compte à rebours, appuyer sur la <strong>BAR ESPACE</strong> le plus longtemps et le plus rapidement possible</h4>
                 </div>
             </div>
 
@@ -228,7 +233,7 @@
                 <div  class="wood">
                     <div class="trackMove1" style="margin-left: 0px;">
                         <div class="avatar" >
-                            <img class="flip" src="beer-128.png" >
+                            <img id='player1' class="flip" src="beer-128.png" >
                         </div>
                         <div class="playerSpeudo1 pseudo"></div>
                     </div>
@@ -241,7 +246,7 @@
                 <div  class="wood">
                     <div class="trackMove2">
                         <div class="avatar">
-                            <img class="flip" src="beer-128.png">
+                            <img id='player2' class="flip" src="beer-128.png">
                         </div>
                         <div class="playerSpeudo2 pseudo" ></div>
                     </div>

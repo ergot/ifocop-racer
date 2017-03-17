@@ -157,6 +157,9 @@ io.sockets.on('connection', function (socket) {
               console.log(`fin de la game en: ${dateEnd} pour ${player.speudo}`);
 
               if (!hasWinner) {
+                socket.emit('img', {player: 'player1', img: 'win'});
+                socket.broadcast.emit('img',{player: 'player2', img: 'win'} );
+
                 timeWinner = dateEnd;
                 hasWinner = true;
                 player.score += 1;
@@ -164,8 +167,11 @@ io.sockets.on('connection', function (socket) {
                   Tu as gagné en ${dateEnd/1000} s
                 </div>`;
                 socket.emit('information', message);
+
               } else {
+                socket.emit('img', {player: 'player1', img: 'loose'});
                 hasWinner = false;
+
                 var message = `<div class="alert alert-danger" role="alert">
                   Tu as perdu de ${(dateEnd-timeWinner)/1000}s
                 </div>`;
