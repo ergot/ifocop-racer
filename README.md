@@ -1,4 +1,4 @@
-![screenshot snake](https://raw.githubusercontent.com/ergot/ifocop-racer/master/800.png)
+![screenshot](https://github.com/ergot/ifocop-racer/blob/master/800.png)
 =======
 Bienvenue !
 ===================
