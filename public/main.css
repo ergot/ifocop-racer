@@ -1,0 +1,43 @@
+body {
+    color: white;
+}
+
+.avatar {
+    height:50px;
+    width:50px;
+}
+
+.background {
+    background-color: #11793d;
+}
+
+.wood {
+    height: 80px;
+    background-color: #461F00;
+    border-right-style: dotted;
+    border-color: white;
+    border-width: 8px;
+}
+
+.pseudo {
+    height:30px;
+    width:50px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.flip {
+    width:50px;
+    height:50px;
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: "FlipH";
+}
+
+#table {
+    height: 220px;
+    overflow: auto;
+}
