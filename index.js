@@ -170,6 +170,7 @@ io.sockets.on('connection', function (socket) {
 
               } else {
                 socket.emit('img', {player: 'player1', img: 'loose'});
+                socket.broadcast.emit('img',{player: 'player2', img: 'loose'} );
                 hasWinner = false;
 
                 var message = `<div class="alert alert-danger" role="alert">
