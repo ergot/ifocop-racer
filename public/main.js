@@ -2,15 +2,15 @@ var socket = io.connect('http://localhost:3000');
 
 var flagKeydown = true;
 
-function step(flagKeydown){
-  window.addEventListener("keydown", function(e){
+function step(flagKeydown) {
+  window.addEventListener("keydown", function (e) {
     if (flagKeydown && e.keyCode == 32) {
       console.log(e.keyCode);
       socket.emit('trackMove', '+1');
       flagKeydown = false;
     }
   });
-  window.addEventListener("keyup", function(e){
+  window.addEventListener("keyup", function (e) {
 
     if (!flagKeydown && e.keyCode == 32) {
       flagKeydown = true;
@@ -18,12 +18,11 @@ function step(flagKeydown){
   });
 }
 
-
-window.addEventListener('load', function (){
+window.addEventListener('load', function () {
   //form
   var form = document.getElementsByTagName('form')[0];
   var formMessage = document.getElementById('formMessage');
-  form.addEventListener('submit', function(e){
+  form.addEventListener('submit', function (e) {
     e.preventDefault();
     formMessage.innerText = '';
     var inputSpeudo = document.getElementById('speudo').value;
@@ -41,8 +40,8 @@ window.addEventListener('load', function (){
         console.log(message.message);
         break;
       case 200:
-        form.style.display='none';
-        document.getElementById('table').style.visibility='visible';
+        form.style.display = 'none';
+        document.getElementById('table').style.visibility = 'visible';
         console.log(message.message);
         break;
     }
@@ -50,46 +49,41 @@ window.addEventListener('load', function (){
 
   socket.on('track', function (message) {
 
-    switch (message.code)    {
+    switch (message.code) {
       case 503:
-        document.getElementById('trackInfo').innerHTML=message.message;
+        document.getElementById('trackInfo').innerHTML = message.message;
         break;
       case 404:
-        document.getElementById('trackInfo').innerHTML=message.message;
-        document.getElementsByClassName('row-player1')[0].style.visibility='visible';
-        document.getElementsByClassName('playerSpeudo1')[0].textContent=message.speudo1;
+        document.getElementById('trackInfo').innerHTML = message.message;
+        document.getElementsByClassName('row-player1')[0].style.visibility = 'visible';
+        document.getElementsByClassName('playerSpeudo1')[0].textContent = message.speudo1;
         break;
       case 200:
-        document.getElementById('trackInfo').innerHTML=message.message;
-        document.getElementsByClassName('row-player1')[0].style.visibility='visible';
-        document.getElementsByClassName('row-player2')[0].style.visibility='visible';
-        document.getElementsByClassName('playerSpeudo1')[0].textContent=message.speudo1;
-        document.getElementsByClassName('playerSpeudo2')[0].textContent=message.speudo2;
-        //step(flagKeydown);
+        document.getElementById('trackInfo').innerHTML = message.message;
+        document.getElementsByClassName('row-player1')[0].style.visibility = 'visible';
+        document.getElementsByClassName('row-player2')[0].style.visibility = 'visible';
+        document.getElementsByClassName('playerSpeudo1')[0].textContent = message.speudo1;
+        document.getElementsByClassName('playerSpeudo2')[0].textContent = message.speudo2;
         break;
       case 202:
-        document.getElementById('trackInfo').innerHTML=message.message;
-        document.getElementsByClassName('row-player2')[0].style.visibility='visible';
-        document.getElementsByClassName('playerSpeudo2')[0].textContent=message.speudo2;
-        //step(flagKeydown);
+        document.getElementById('trackInfo').innerHTML = message.message;
+        document.getElementsByClassName('row-player2')[0].style.visibility = 'visible';
+        document.getElementsByClassName('playerSpeudo2')[0].textContent = message.speudo2;
         break;
     }
-
   });
 
   socket.on('trackMove', function (message) {
     if (message.px1) {
       var witdhDiv = document.getElementsByClassName('row-player1')[0].clientWidth;
-
-      var newPx = message.px1*witdhDiv;
-      document.getElementsByClassName('trackMove1')[0].style.marginLeft=newPx+'px';
+      var newPx = message.px1 * witdhDiv;
+      document.getElementsByClassName('trackMove1')[0].style.marginLeft = newPx + 'px';
     }
 
     if (message.px2) {
       var witdhDiv = document.getElementsByClassName('row-player1')[0].clientWidth;
-      var newPx = message.px2*witdhDiv;
-
-      document.getElementsByClassName('trackMove2')[0].style.marginLeft=newPx+'px';
+      var newPx = message.px2 * witdhDiv;
+      document.getElementsByClassName('trackMove2')[0].style.marginLeft = newPx + 'px';
     }
   });
 
@@ -107,40 +101,35 @@ window.addEventListener('load', function (){
 
     render += '<tbody>';
 
-    players.forEach(function(player) {
-
+    players.forEach(function (player) {
       var template = `<tr>
                                 <td>${player.speudo}</td>
                                 <td>${player.score}</td>
-                                 <td>${player.time/1000} s</td>
+                                 <td>${player.time / 1000} s</td>
                               </tr>`;
 
       render += template;
-
     });
     render += '</tbody>';
-
     document.getElementById('scoreboard').innerHTML = render;
-
   });
 
-  socket.on('information', function(message){
-    document.getElementById('information').innerHTML=message;
+  socket.on('information', function (message) {
+    document.getElementById('information').innerHTML = message;
   });
 
-  socket.on('crebour', function(message) {
+  socket.on('crebour', function (message) {
     console.log(message);
-    document.getElementById('trackInfo').innerHTML=message;
+    document.getElementById('trackInfo').innerHTML = message;
   });
 
-  socket.on('runForest', function(message) {
+  socket.on('runForest', function (message) {
     step(flagKeydown);
   });
 
   //change img when loose or winid='player1
-  socket.on('img', function(message) {
-    document.getElementById(message.player).src = message.img+"-128.png";
-
+  socket.on('img', function (message) {
+    document.getElementById(message.player).src = message.img + "-128.png";
   });
-})
+});
 
